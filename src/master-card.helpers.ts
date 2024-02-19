@@ -27,4 +27,30 @@ export const multiplicaPorDosSaltandoUno = (cadena: string): number[] => {
   return resultado;
 };
 
-export const sumaDecenasUnidades = (numeros: number[]): number[] => {};
+const sumaDecenasUnidades = (numero: number): number => {
+  if (numero < 10) return numero;
+  const unidades = numero % 10;
+  const decenas = Math.floor(numero / 10);
+  return unidades + decenas;
+};
+export const sumaDecenasUnidadesColeccion = (numeros: number[]): number[] => {
+  if (!numeros) {
+    throw new Error('No se ha introducido un número');
+  }
+  return numeros.map(sumaDecenasUnidades);
+};
+
+export const sumaDigitos = (numeros: number[]): number => {
+  if (!numeros) {
+    throw new Error('No se ha introducido un número');
+  }
+  return numeros.reduce((acc, currentValue) => acc + currentValue, 0);
+};
+
+export const calculaFlagDeSumaTotal = (sumaTotal: number): number => {
+  if (!sumaTotal) {
+    throw new Error('No se ha introducido un número');
+  }
+
+  return 10 - (sumaTotal % 10);
+};
