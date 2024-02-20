@@ -5,7 +5,7 @@ export const eliminaUltimoDigito = (numeroTarjeta: string): string => {
   return numeroTarjeta.slice(0, numeroTarjeta.length - 1);
 };
 
-export const obtenerUltimoDigito = (numeroTarjeta: string): number | null => {
+export const obtenerUltimoDigito = (numeroTarjeta: string): number => {
   if (!numeroTarjeta) {
     throw new Error('No se ha introducido una cadena');
   }
@@ -53,4 +53,14 @@ export const calculaFlagDeSumaTotal = (sumaTotal: number): number => {
   }
 
   return 10 - (sumaTotal % 10);
+};
+
+export const validarInput = (numeroTarjeta: string): void => {
+  if (
+    !numeroTarjeta ||
+    numeroTarjeta.length !== 16 ||
+    isNaN(parseInt(numeroTarjeta))
+  ) {
+    throw new Error('No se ha introducido un número de tarjeta correcto');
+  }
 };
