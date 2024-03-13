@@ -1,8 +1,6 @@
 import { filtrarPersonajes, obtenerPersonajes } from './personajes.api';
 import { Personaje } from './personajes.model';
 
-let filtroInput: HTMLInputElement | null;
-
 // Función auxiliar para crear una tarjeta de personaje
 const crearTarjetaPersonaje = (personaje: Personaje): HTMLElement => {
   const personajeCard = document.createElement('div');
@@ -42,11 +40,7 @@ const renderPersonajes = (personajes: Personaje[]) => {
 const manejarBusquedaPersonajes = async () => {
   const filtroInputLocal = document.getElementById(
     'filtro'
-  ) as HTMLInputElement | null; // Definido localmente
-  if (!filtroInputLocal) {
-    console.error('Elemento de filtro no encontrado.');
-    return;
-  }
+  ) as HTMLInputElement;
   const filtro = filtroInputLocal.value;
   try {
     const personajes =
@@ -61,22 +55,34 @@ const manejarBusquedaPersonajes = async () => {
 
 // Inicialización y eventos del DOM
 const inicializar = () => {
-  filtroInput = document.getElementById('filtro') as HTMLInputElement | null;
-  if (!filtroInput) {
-    console.error('Elemento de filtro no encontrado.');
-    return;
-  }
-
-  const filtroBtn = document.getElementById(
-    'filtro-btn'
-  ) as HTMLButtonElement | null;
+  const filtroBtn = document.getElementById('filtro-btn') as HTMLButtonElement;
+  const reiniciarBtn = document.getElementById(
+    'reiniciar-btn'
+  ) as HTMLButtonElement;
+  const filtroInput = document.getElementById('filtro') as HTMLInputElement;
 
   if (!filtroBtn) {
     console.error('Botón de filtro no encontrado.');
     return;
   }
+  if (!reiniciarBtn) {
+    console.error('Botón de reiniciar no encontrado.');
+    return;
+  }
+  if (!filtroInput) {
+    console.error('Elemento de filtro no encontrado.');
+    return;
+  }
 
   filtroBtn.addEventListener('click', manejarBusquedaPersonajes);
+  reiniciarBtn.addEventListener('click', () => {
+    if (filtroInput) {
+      filtroInput.value = '';
+    }
+    obtenerPersonajes()
+      .then(renderPersonajes)
+      .catch((error) => console.error('Error al cargar personajes:', error));
+  });
   filtroInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
       manejarBusquedaPersonajes();
@@ -88,5 +94,4 @@ const inicializar = () => {
     .catch((error) => console.error('Error al cargar personajes:', error));
 };
 
-// Cambio importante aquí: usar el evento DOMContentLoaded para iniciar
 document.addEventListener('DOMContentLoaded', inicializar);
