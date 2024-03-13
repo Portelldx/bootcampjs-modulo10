@@ -5,18 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="/src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Personajes de Mortadelo y Filemón</title>
   </head>
   <body>
-    <div id="app">
-      <h1>Adivina el numero</h1>
-      <div>
-        <input type="number" id="numero" />
-        <button id="comprobar">Comprobar</button>
-      </div>
-      <div id="resultado"></div>
-      <div id="intentos"></div>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
+    <header>
+      <h1>Personajes de Mortadelo y Filemón</h1>
+      <input type="text" id="filtro" placeholder="Filtrar por nombre" />
+      <button id="filtro-btn">Filtrar</button>
+    </header>
+    <div id="personajes-list"></div>
+    <script type="module" src="/src/personajes.ts"></script>
   </body>
 </html>
